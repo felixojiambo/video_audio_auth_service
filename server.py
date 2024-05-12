@@ -9,3 +9,12 @@ server.config["MYSQL_USER"]=os.environ.get("MYSQL_USER", "root")
 server.config["MYSQL_PASSWORD"]=os.environ.get("MYSQL_PASSWORD", "5418feliX")
 server.config["MYSQL_DB"]=os.environ.get("MYSQL_DB", "istream")
 server.config["MYSQL_PORT"]=os.environ.get("MYSQL_PORT", "3308")
+
+@server.route("/login",methods=["POST"])
+def login():
+    auth=request.authorization
+    if not auth:
+        return "missing creditials",401
+    
+    #check db for username and password
+    
