@@ -31,15 +31,16 @@ def login():
              return createJWT(auth.username,os.environ.get("JWT_SECRET"),True)
     else:
         return "invalids creditials",401  
-@server.route("/validate",method=["POST"])
+    
+@server.route("/validate",methods=["POST"])
 def validate():
-     encode_jwt=request.headers["Authorization"]
-     if not encode_jwt:
+     encoded_jwt=request.headers["Authorization"]
+     if not encoded_jwt:
           return "missing credentials", 401  
-     encoded_jwt=encode_jwt.split("")[1]
+     encoded_jwt=encoded_jwt.split("")[1]
      try:
           decoded=jwt.decode(
-               encode_jwt,os.environ.get("JWT_SECRET"),algorithm=["HS256"]
+               encoded_jwt,os.environ.get("JWT_SECRET"),algorithm=["HS256"]
           )      
      except:
           return "not authorized",403     
